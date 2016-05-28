@@ -47,8 +47,13 @@
 	  	window.tw = window.trashcan.width;
 		window.th = window.trashcan.height;
 
-		window.trashcan.width = window.innerWidth / 4;
-		window.trashcan.height = window.th * (window.trashcan.width / window.tw);
+		if (window.mobilecheck === true) {
+	  		window.trashcan.width = window.innerWidth / 2;
+			window.trashcan.height = window.th * (window.trashcan.width / window.tw);
+	  	} else {
+	  		window.trashcan.width = window.innerWidth / 6;
+			window.trashcan.height = window.th * (window.trashcan.width / window.tw);
+	  	}
 
 	  	window.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height)
 
