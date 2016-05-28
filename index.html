@@ -12,26 +12,61 @@
 	window.trashcan = new Image();
 	window.trashcan.src = 'mac-trash.jpg'
 
-	window.addEventListener('load', resizeCanvas, false)
-	window.addEventListener('resize', resizeCanvas, false);
+	window.addEventListener('load', function() {resizeCanvas()}, false)
+	window.addEventListener('resize', function() {resizeCanvas()}, false);
+	document.getElementById('trash').addEventListener('mousedown', checkIfClickTrash, false)
 
-	function resizeCanvas() {
+	window.scaleFactor = 0.4; // this is so I don't have to change the same value four times
+
+	function resizeCanvas(center) {
 	  	window.canvas = document.getElementById("trash");
 	  	window.ctx = canvas.getContext("2d");
 	  
 	  	window.canvas.width = window.innerWidth;
 	  	window.canvas.height = window.innerHeight;
 
-	  	trashCanDraw();
+	  	window.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height)
+
+	  	window.tx = window.canvas.width / 2 - (window.trashcan.width * window.scaleFactor) / 2
+	  	window.ty = window.canvas.height / 2 - (window.trashcan.height * window.scaleFactor) / 2
+
+		window.ctx.drawImage(window.trashcan,
+	        window.tx,
+	        window.ty,
+	        window.trashcan.width * window.scaleFactor,
+	        window.trashcan.height * window.scaleFactor);
+	}
+
+	function checkIfClickTrash(e) {
+		e.preventDefault();
+	    var x = e.clientX;
+	    var y = e.clientY;
+
+	    if (x > window.tx && x < window.tx + (window.trashcan.width * window.scaleFactor) && y > window.ty && y < window.ty + (window.trashcan.height * window.scaleFactor)) {
+	        trashCanDraw();
+	    }
 	}
 
 	function trashCanDraw() {
-	  	ctx.drawImage(window.trashcan,
-	        window.canvas.width / 2 - window.trashcan.width / 2,
-	        window.canvas.height / 2 - window.trashcan.height / 2)
+		window.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height)
 
-	  	console.log(window.canvas.width)
-	  	console.log(window.canvas.height)
+		console.log("canvas width: " + window.canvas.width);
+		console.log("canvas height: " + window.canvas.height);
+		console.log("canvas maxwidth: " + (window.canvas.width - (window.trashcan.width * window.scaleFactor)));
+		console.log("canvas maxheight: " + (window.canvas.height - (window.trashcan.height * window.scaleFactor)));
+
+		window.tx = Math.floor(Math.random() * (window.canvas.width - (window.trashcan.width * window.scaleFactor)));
+		window.ty = Math.floor(Math.random() * (window.canvas.height - (window.trashcan.height * window.scaleFactor)));
+
+	  	console.log("image x: " + window.tx)
+	  	console.log("image y: " + window.ty)
+
+	  	window.ctx.drawImage(
+	  		window.trashcan,
+	        window.tx,
+	        window.ty,
+	        window.trashcan.width * window.scaleFactor,
+	        window.trashcan.height * window.scaleFactor)
 	}
 	</script>
 </body>
