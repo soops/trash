@@ -58,12 +58,14 @@
         window.tx = window.canvas.width / 2 - (window.trashcan.width) / 2
         window.ty = window.canvas.height / 2 - (window.trashcan.height) / 2
 
-        window.ctx.font = "20px Comic Sans MS";
+        
 
         if (window.mobilecheck() === true) {
+            window.ctx.font = "20px Arial";
             var textString = "tap the trash",
                 textWidth = window.ctx.measureText(textString).width;
         } else {
+            window.ctx.font = "20px Comic Sans MS";
             var textString = "hover over the trash",
                 textWidth = window.ctx.measureText(textString).width;
         }
