@@ -1,112 +1,112 @@
 <!DOCTYPE html>
 <head>
-	<title>trash</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-	<style>
-	body {
-		overflow: hidden;
-	}
-	canvas {
-		width: 100%;
-		height: 100%;
-	}
-	</style>
+    <title>trash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style>
+    body {
+        overflow: hidden;
+    }
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
 </head>
 <body>
-	<canvas id="trash"></canvas>
-	<script>
-	window.mobilecheck = function() {
-	  	if(typeof window.orientation !== 'undefined') {return true} else {return false}
-	}
+    <canvas id="trash"></canvas>
+    <script>
+    window.mobilecheck = function() {
+        if(typeof window.orientation !== 'undefined') {return true} else {return false}
+    }
 
-	window.trashcan = new Image();
-	window.trashcan.src = 'mac-trash.jpg'
+    window.trashcan = new Image();
+    window.trashcan.src = 'mac-trash.jpg'
 
-	window.addEventListener('load', function() {resizeCanvas()}, false)
-	window.addEventListener('resize', function() {resizeCanvas()}, false);
-	
-	if (window.mobilecheck() === true) {
-		document.getElementById('trash').addEventListener('mousedown', checkIfClickTrash, false)
-	} else {
-		document.getElementById('trash').addEventListener('mousemove', checkIfClickTrash, false)
-	}
-	
+    window.addEventListener('load', function() {resizeCanvas()}, false)
+    window.addEventListener('resize', function() {resizeCanvas()}, false);
+    
+    if (window.mobilecheck() === true) {
+        document.getElementById('trash').addEventListener('mousedown', checkIfClickTrash, false)
+    } else {
+        document.getElementById('trash').addEventListener('mousemove', checkIfClickTrash, false)
+    }
+    
 
-	window.scaleFactor = null; // this is so I don't have to change the same value four times
+    window.scaleFactor = null; // this is so I don't have to change the same value four times
 
-	function resizeCanvas(title) {
-	  	window.canvas = document.getElementById("trash");
-	  	window.ctx = canvas.getContext("2d");
-	  
-	  	window.canvas.width = window.innerWidth;
-	  	window.canvas.height = window.innerHeight;
+    function resizeCanvas(title) {
+        window.canvas = document.getElementById("trash");
+        window.ctx = canvas.getContext("2d");
+      
+        window.canvas.width = window.innerWidth;
+        window.canvas.height = window.innerHeight;
 
-	  	// responsive trashcan
-	  	window.tw = window.trashcan.width;
-		window.th = window.trashcan.height;
+        // responsive trashcan
+        window.tw = window.trashcan.width;
+        window.th = window.trashcan.height;
 
-		if (window.mobilecheck() === true) {
-	  		window.trashcan.width = window.innerWidth / 2;
-			window.trashcan.height = window.th * (window.trashcan.width / window.tw);
-	  	} else {
-	  		window.trashcan.width = window.innerWidth / 6;
-			window.trashcan.height = window.th * (window.trashcan.width / window.tw);
-	  	}
+        if (window.mobilecheck() === true) {
+            window.trashcan.width = window.innerWidth / 2;
+            window.trashcan.height = window.th * (window.trashcan.width / window.tw);
+        } else {
+            window.trashcan.width = window.innerWidth / 6;
+            window.trashcan.height = window.th * (window.trashcan.width / window.tw);
+        }
 
-	  	window.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height)
+        window.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height)
 
-	  	window.tx = window.canvas.width / 2 - (window.trashcan.width) / 2
-	  	window.ty = window.canvas.height / 2 - (window.trashcan.height) / 2
+        window.tx = window.canvas.width / 2 - (window.trashcan.width) / 2
+        window.ty = window.canvas.height / 2 - (window.trashcan.height) / 2
 
-	  	window.ctx.font = "20px Comic Sans MS";
+        window.ctx.font = "20px Comic Sans MS";
 
-	  	if (window.mobilecheck() === true) {
-	  		var textString = "tap the trash",
-    			textWidth = window.ctx.measureText(textString).width;
-	  	} else {
-	  		var textString = "hover over the trash",
-    			textWidth = window.ctx.measureText(textString).width;
-	  	}
-	  	
-	  	window.ctx.fillText(textString, (canvas.width / 2) - (textWidth / 2), window.ty - 30);
+        if (window.mobilecheck() === true) {
+            var textString = "tap the trash",
+                textWidth = window.ctx.measureText(textString).width;
+        } else {
+            var textString = "hover over the trash",
+                textWidth = window.ctx.measureText(textString).width;
+        }
+        
+        window.ctx.fillText(textString, (canvas.width / 2) - (textWidth / 2), window.ty - 30);
 
-		window.ctx.drawImage(window.trashcan,
-	        window.tx,
-	        window.ty,
-	        window.trashcan.width,
-	        window.trashcan.height);
-	}
+        window.ctx.drawImage(window.trashcan,
+            window.tx,
+            window.ty,
+            window.trashcan.width,
+            window.trashcan.height);
+    }
 
-	function checkIfClickTrash(e) {
-		e.preventDefault();
-	    var x = e.clientX;
-	    var y = e.clientY;
+    function checkIfClickTrash(e) {
+        e.preventDefault();
+        var x = e.clientX;
+        var y = e.clientY;
 
-	    if (x > window.tx && x < window.tx + (window.trashcan.width) && y > window.ty && y < window.ty + (window.trashcan.height)) {
-	        trashCanDraw();
-	    }
-	}
+        if (x > window.tx && x < window.tx + (window.trashcan.width) && y > window.ty && y < window.ty + (window.trashcan.height)) {
+            trashCanDraw();
+        }
+    }
 
-	function trashCanDraw() {
-		window.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height)
+    function trashCanDraw() {
+        window.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height)
 
-		console.log("canvas width: " + window.canvas.width);
-		console.log("canvas height: " + window.canvas.height);
-		console.log("canvas maxwidth: " + (window.canvas.width - (window.trashcan.width)));
-		console.log("canvas maxheight: " + (window.canvas.height - (window.trashcan.height)));
+        console.log("canvas width: " + window.canvas.width);
+        console.log("canvas height: " + window.canvas.height);
+        console.log("canvas maxwidth: " + (window.canvas.width - (window.trashcan.width)));
+        console.log("canvas maxheight: " + (window.canvas.height - (window.trashcan.height)));
 
-		window.tx = Math.floor(Math.random() * (window.canvas.width - (window.trashcan.width)));
-		window.ty = Math.floor(Math.random() * (window.canvas.height - (window.trashcan.height)));
+        window.tx = Math.floor(Math.random() * (window.canvas.width - (window.trashcan.width)));
+        window.ty = Math.floor(Math.random() * (window.canvas.height - (window.trashcan.height)));
 
-	  	console.log("image x: " + window.tx)
-	  	console.log("image y: " + window.ty)
+        console.log("image x: " + window.tx)
+        console.log("image y: " + window.ty)
 
-	  	window.ctx.drawImage(
-	  		window.trashcan,
-	        window.tx,
-	        window.ty,
-	        window.trashcan.width,
-	        window.trashcan.height)
-	}
-	</script>
+        window.ctx.drawImage(
+            window.trashcan,
+            window.tx,
+            window.ty,
+            window.trashcan.width,
+            window.trashcan.height)
+    }
+    </script>
 </body>
