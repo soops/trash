@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+	<title>trash</title>
 	<style>
 	body {
 		overflow: hidden;
@@ -30,9 +31,10 @@
 
 	window.scaleFactor = 0.4; // this is so I don't have to change the same value four times
 
-	function resizeCanvas(center) {
+	function resizeCanvas(title) {
 	  	window.canvas = document.getElementById("trash");
 	  	window.ctx = canvas.getContext("2d");
+	  	window.ctx.font = "50px Comic Sans MS";
 	  
 	  	window.canvas.width = window.innerWidth;
 	  	window.canvas.height = window.innerHeight;
@@ -41,6 +43,16 @@
 
 	  	window.tx = window.canvas.width / 2 - (window.trashcan.width * window.scaleFactor) / 2
 	  	window.ty = window.canvas.height / 2 - (window.trashcan.height * window.scaleFactor) / 2
+
+	  	if (window.mobilecheck === true) {
+	  		var textString = "tap the trash",
+    			textWidth = window.ctx.measureText(textString).width;
+	  	} else {
+	  		var textString = "hover over the trash",
+    			textWidth = window.ctx.measureText(textString).width;
+	  	}
+	  	
+	  	window.ctx.fillText(textString, (canvas.width / 2) - (textWidth / 2), window.ty - 30);
 
 		window.ctx.drawImage(window.trashcan,
 	        window.tx,
