@@ -30,9 +30,6 @@
     } else {
         document.getElementById('trash').addEventListener('mousemove', checkIfClickTrash, false)
     }
-    
-
-    window.scaleFactor = null; // this is so I don't have to change the same value four times
 
     function resizeCanvas(title) {
         window.canvas = document.getElementById("trash");
@@ -58,7 +55,6 @@
         window.tx = window.canvas.width / 2 - (window.trashcan.width) / 2
         window.ty = window.canvas.height / 2 - (window.trashcan.height) / 2
 
-        
 
         if (window.mobilecheck() === true) {
             window.ctx.font = "20px Arial";
