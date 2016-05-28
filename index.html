@@ -25,7 +25,7 @@
 	window.addEventListener('load', function() {resizeCanvas()}, false)
 	window.addEventListener('resize', function() {resizeCanvas()}, false);
 	
-	if (window.mobilecheck === true) {
+	if (window.mobilecheck() === true) {
 		document.getElementById('trash').addEventListener('mousedown', checkIfClickTrash, false)
 	} else {
 		document.getElementById('trash').addEventListener('mousemove', checkIfClickTrash, false)
@@ -45,7 +45,7 @@
 	  	window.tw = window.trashcan.width;
 		window.th = window.trashcan.height;
 
-		if (window.mobilecheck === true) {
+		if (window.mobilecheck() === true) {
 	  		window.trashcan.width = window.innerWidth / 2;
 			window.trashcan.height = window.th * (window.trashcan.width / window.tw);
 	  	} else {
@@ -60,7 +60,7 @@
 
 	  	window.ctx.font = "20px Comic Sans MS";
 
-	  	if (window.mobilecheck === true) {
+	  	if (window.mobilecheck() === true) {
 	  		var textString = "tap the trash",
     			textWidth = window.ctx.measureText(textString).width;
 	  	} else {
